@@ -41,4 +41,11 @@ body {
   border: outset 10px #b07b4f;
 }
 
+.boggle__button {
 
+  margin: 10px;
+  height: 50px;
+  width: 150px;
+  border-radius: 8px;
+  font-size: 14pt;
+}
