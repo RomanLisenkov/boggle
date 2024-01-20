@@ -1,4 +1,5 @@
-﻿const arrOfLettersForDice = [
+﻿
+const arrOfLettersForDice = [
   'AAEEGN',
   'ABBJOO',
   'ACHOPS',
@@ -243,4 +244,13 @@ start();
 // let letterFromArray = resArr[0];
 
 // console.log(resArr[0]);
+
+
+
+function randomDiceAndLetter(arr) {
+  const randomDice = Math.floor(Math.random() * 16);
+  const randomInteger = Math.floor(Math.random() * 6);
+  return arr[randomDice][randomInteger];
+}
+
 
