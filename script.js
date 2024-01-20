@@ -33,7 +33,8 @@ const arrOfArr = [
   ['E', 'I', 'O', 'S', 'S', 'T'],
   ['E', 'L', 'R', 'T', 'T', 'Y'],
   ['H', 'I', 'M', 'N', 'U', 'Qu'],
-  ['H', 'L', 'N', 'N', 'R', 'Z'],
+  // ['H', 'L', 'N', 'N', 'R', 'Z']
+  ,['Qu','Qu','Qu','Qu','Qu','Qu']
 ];
 
 const body = document.getElementById('body')
@@ -44,8 +45,10 @@ const output = document.querySelector('.boggle__result');
 const reset = document.getElementById('shuffle')
 
 let word = '';
+let score = 0;
 
 const arrOfCorrectWords = [];
+let arrOfBtn = []
 
 // Variable to track mouse state
 let isMouseDown;
@@ -59,61 +62,35 @@ gameArea.addEventListener('mousedown', (event) => {
     let hoveredLetter = event.target.textContent;
     output.textContent = "";
 
+    arrOfBtn.push(event.target)
     output.textContent += hoveredLetter;
     word += hoveredLetter;
   }
 });
 
 // Event listener for mouse move
+
 buttons.forEach((btn) => {
+  
   btn.addEventListener('mouseover',  (event) => {
     // or mousemove
+    // let addLetter = true;
     event.preventDefault();
     if (isMouseDown) {
-      let addLetter = true;
       if (!btn.className.includes('changed')) {
         btn.style.border = '5px solid black';
         let hoveredLetter = event.target.textContent;
         output.textContent += hoveredLetter;
         word += hoveredLetter;
-        addLetter = false;
+        arrOfBtn.push(btn)
+        console.log(arrOfBtn)
+        // addLetter = false;
         btn.classList.add('changed');
       } 
       
-      else {
-        let hoveredLetter = event.target.textContent;
-        output.textContent += hoveredLetter;
-        word += hoveredLetter;
-        // addLetter = false;
-        each.classList.remove('changed');
-        each.style = 'border: outset 10px #b07b4f;'
-
-      }
     }
   });
 });
-
-
-//!!!!!!!!!!!!!!!!!
-// buttons.forEach((btn) => {
-//   btn.addEventListener('mouseout',  (event) => {
-//     // or mousemove
-//     event.preventDefault();
-//    // if (isMouseDown) {
-//       // let addLetter = true;
-//       if (btn.className.includes('changed')) {
-//         btn.style = 'border: outset 10px #b07b4f;'
-//         // let hoveredLetter = event.target.textContent;
-//         // output.textContent += hoveredLetter;
-//         // word += hoveredLetter;
-//         // addLetter = false;
-//         // btn.classList.add('changed');
-//     //  } 
-      
-  
-//     }
-//   });
-// });
 
 //event lestener to release mouse
 body.addEventListener('mouseup', (event) => {
@@ -125,6 +102,8 @@ body.addEventListener('mouseup', (event) => {
   output.textContent = 'Выбери слово...';
   isMouseDown = false;
 
+   arrOfBtn = []
+   console.log("!!! ",arrOfBtn)
 
   //fetch => get
   console.log("WORD ", word)
@@ -133,16 +112,43 @@ body.addEventListener('mouseup', (event) => {
 
 
 reset.addEventListener('click', (event) => {
-  buttons.forEach((btn, index) => {
-    btn.textContent = randomLetter(arrOfArr, index);
+  const shuffle = diceShuffle()
+  buttons.forEach((btn) => {
+    btn.textContent = randomDiceAndLetter(arrOfArr);
+
   });
+
+  arrOfBtn = []
+
   output.textContent = 'Выбери слово...';
 });
 
-
-function randomLetter(arr, diceNumber) {
-  const randomInteger = Math.floor(Math.random() * 6);
-  return arr[diceNumber][randomInteger];
+function diceShuffle(){
+  const arrOfDice = []
+  for(let i = 0; i < 16; i++){
+    const randomInteger = Math.floor(Math.random() * 16);
+    if(!arrOfDice.includes(randomInteger)){
+          arrOfDice.push(randomInteger)
+    } else {
+      i -=1
+    }
+  }
+  return arrOfDice
 }
 
+function randomDiceAndLetter(arr) {
+  const randomDice = Math.floor(Math.random() * 16);
+  const randomInteger = Math.floor(Math.random() * 6);
+  return arr[randomDice][randomInteger];
+}
+
+function resultOfWordCheck(resultOfChecking, score, word){
+  let message = "не подходит"
+  if(resultOfChecking){
+     score +=1
+    return message = 'подходит +1'
+  } 
+  message = word + "не подходит"
+  return message
+}
 
