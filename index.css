@@ -1,0 +1,44 @@
+﻿* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.wrapper {
+}
+.boggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.boggle__score {
+}
+.boggle__result {
+}
+.boggle__gamearea {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 400px;
+  background-color: #ffa500;
+  border-radius: 20px;
+  border: outset 10px #ff8c01;
+}
+.boggle__gamearea__button {
+  width: 80px;
+  height: 80px;
+  margin: 5px;
+  font-size: 20pt;
+  border-radius: 8px;
+  color: #b07b4f;
+  border: outset 10px #b07b4f;
+}
+
+
